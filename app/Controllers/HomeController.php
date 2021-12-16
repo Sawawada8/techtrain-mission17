@@ -5,16 +5,16 @@ class HomeController
 {
     public function index()
     {
-        echo "called home controller index action ";
+        echo "called Home Controller -> index action ";
     }
 
     public function create()
     {
-        echo "called home controller create action ";
+        echo "called HomeController -> create action ";
     }
 
     public function test()
     {
-        echo "called home controller test action ";
+        echo "called HomeController -> test action ";
     }
 }

@@ -3,6 +3,7 @@ namespace MyFrameWork;
 
 use Exception;
 use MyFrameWork\Routing\Route;
+use MyFrameWork\Controller\Controller;
 use App\Controllers;
 
 class Application
@@ -25,7 +26,8 @@ class Application
         }
 
         if (is_null($action)) {
-            throw new Exception("not defined !!!!");
+            Controller::show404();
+            exit();
         }
 
         $controller = "App\\Controllers\\" . $action["controller"];
