@@ -1,6 +1,12 @@
 # TechTrain MISSION 17
 ## 自作フレームワークを作ろう
 
+### 環境構築
+```
+composer install
+docker compose up -d
+```
+
 ### dir構成
 ```dir構成
 .env

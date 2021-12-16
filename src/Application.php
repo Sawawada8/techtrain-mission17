@@ -5,9 +5,18 @@ use Exception;
 use MyFrameWork\Routing\Route;
 use MyFrameWork\Controller\Controller;
 use App\Controllers;
+use Dotenv\Dotenv;
 
 class Application
 {
+    /**
+     * application の初期化
+     */
+    public function __construct()
+    {
+        $this->loadEnv();
+    }
+
     /**
      * pathに対応するアクションを呼び出す。
      */
@@ -34,5 +43,15 @@ class Application
         $action = $action["action"];
 
         (new $controller())->$action();
+    }
+
+    /**
+     * load env
+     * @return void
+     */
+    public function loadEnv()
+    {
+        $dotenv = Dotenv\Dotenv::createImmutable(realpath(__DIR__ . "/../"));
+        $dotenv->load();
     }
 }
