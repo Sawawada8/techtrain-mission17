@@ -5,6 +5,6 @@ class UserController
 {
     public function index()
     {
-        echo "called user controller ";
+        echo "called User controller index action ";
     }
 }

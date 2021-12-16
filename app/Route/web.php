@@ -1,5 +1,10 @@
 <?php
+use MyFrameWork\Routing\Route;
 
-$route = new Route();
+$route = Route::getInstance();
 
-$route->setGet("/home", "HomeController@index");
+$route
+    ->setGet("/", "HomeController@index")
+    ->setPost("/", "HomeController@create")
+    ->setGet("/home", "HomeController@test")
+    ->setGet("/user", "UserController@index");
