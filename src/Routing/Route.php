@@ -9,9 +9,9 @@ class Route
     /**
      * 登録された path と action
      * ['path' => [
-     *      'controller' => 'action'
-     *   ]
-     * ]
+     *    'controller' => 'controllername',
+     *    'action'     => 'action name'
+     * ]]
      */
     public $getRoutes = [];
     /**
@@ -30,9 +30,7 @@ class Route
     ) {
         if (!isset(self::$route)) {
             self::$route = new Route($getRoutes, $postRoutes, $putRoutes);
-            echo "created Route instance";
         }
-        echo "get Route instance";
         return self::$route;
     }
 
@@ -68,10 +66,9 @@ class Route
                 "action の指定方法は [controller@action]の形式で指定して下さい。"
             );
         }
-        $this->getRoutes = [
-            $path => [
-                $action[0] => $action[1],
-            ],
+        $this->getRoutes[$path] = [
+            "controller" => $action[0],
+            "action" => $action[1],
         ];
         return $this;
     }
@@ -87,10 +84,9 @@ class Route
                 "action の指定方法は [controller@action]の形式で指定して下さい。"
             );
         }
-        $this->postRoutes = [
-            $path => [
-                $action[0] => $action[1],
-            ],
+        $this->postRoutes[$path] = [
+            "controller" => $action[0],
+            "action" => $action[1],
         ];
         return $this;
     }
@@ -106,10 +102,9 @@ class Route
                 "action の指定方法は [controller@action]の形式で指定して下さい。"
             );
         }
-        $this->putRoutes = [
-            $path => [
-                $action[0] => $action[1],
-            ],
+        $this->putRoutes[$path] = [
+            "controller" => $action[0],
+            "action" => $action[1],
         ];
         return $this;
     }
