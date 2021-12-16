@@ -1,9 +1,17 @@
 <?php
+namespace MyFrameWork\Routing;
+
+use Exception;
 
 class Route
 {
+    private static $route;
     /**
      * 登録された path と action
+     * ['path' => [
+     *    'controller' => 'controllername',
+     *    'action'     => 'action name'
+     * ]]
      */
     public $getRoutes = [];
     /**
@@ -15,7 +23,18 @@ class Route
      */
     public $putRoutes = [];
 
-    public function __construct(
+    public static function getInstance(
+        $getRoutes = [],
+        $postRoutes = [],
+        $putRoutes = []
+    ) {
+        if (!isset(self::$route)) {
+            self::$route = new Route($getRoutes, $postRoutes, $putRoutes);
+        }
+        return self::$route;
+    }
+
+    private function __construct(
         $getRoutes = [],
         $postRoutes = [],
         $putRoutes = []
@@ -42,10 +61,14 @@ class Route
     public function setGet(string $path, $action)
     {
         $action = explode("@", $action);
-        $this->getRoutes = [
-            $path => [
-                $action[0] => $action[1],
-            ],
+        if (count($action) !== 2) {
+            throw new Exception(
+                "action の指定方法は [controller@action]の形式で指定して下さい。"
+            );
+        }
+        $this->getRoutes[$path] = [
+            "controller" => $action[0],
+            "action" => $action[1],
         ];
         return $this;
     }
@@ -53,16 +76,36 @@ class Route
     /**
      * postメソッドの追加
      */
-    public function setPost()
+    public function setPost(string $path, $action)
     {
+        $action = explode("@", $action);
+        if (count($action) !== 2) {
+            throw new Exception(
+                "action の指定方法は [controller@action]の形式で指定して下さい。"
+            );
+        }
+        $this->postRoutes[$path] = [
+            "controller" => $action[0],
+            "action" => $action[1],
+        ];
         return $this;
     }
 
     /**
      * putメソッドの追加
      */
-    public function setPut()
+    public function setPut(string $path, $action)
     {
+        $action = explode("@", $action);
+        if (count($action) !== 2) {
+            throw new Exception(
+                "action の指定方法は [controller@action]の形式で指定して下さい。"
+            );
+        }
+        $this->putRoutes[$path] = [
+            "controller" => $action[0],
+            "action" => $action[1],
+        ];
         return $this;
     }
 
